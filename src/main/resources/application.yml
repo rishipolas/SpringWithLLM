@@ -1,0 +1,79 @@
+spring:
+  application:
+    name: SpringWithLLM
+  
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:your-openai-key}
+      chat:
+        options:
+          model: gpt-4
+          temperature: 0.7
+    
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY:your-anthropic-key}
+      chat:
+        options:
+          model: claude-3-5-sonnet-20241022
+          temperature: 0.7
+    
+    azure:
+      openai:
+        api-key: ${AZURE_OPENAI_API_KEY:your-azure-key}
+        endpoint: ${AZURE_OPENAI_ENDPOINT:https://your-resource.openai.azure.com}
+        chat:
+          options:
+            deployment-name: gpt-4
+    
+    vertex:
+      ai:
+        gemini:
+          project-id: ${VERTEX_AI_PROJECT_ID:your-project-id}
+          location: ${VERTEX_AI_LOCATION:us-central1}
+          chat:
+            options:
+              model: gemini-pro
+    
+    bedrock:
+      anthropic:
+        claude:
+          chat:
+            enabled: true
+            options:
+              model: anthropic.claude-3-sonnet-20240229-v1:0
+      aws:
+        region: ${AWS_REGION:us-east-1}
+        access-key: ${AWS_ACCESS_KEY:your-access-key}
+        secret-key: ${AWS_SECRET_KEY:your-secret-key}
+    
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      chat:
+        options:
+          model: llama2
+          temperature: 0.7
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springai_db
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.ai: DEBUG
+    com.example.springwithllm: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
